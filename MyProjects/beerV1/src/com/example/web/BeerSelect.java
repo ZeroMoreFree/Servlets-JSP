@@ -13,15 +13,11 @@ public class BeerSelect extends HttpServlet{
                 
                 String c = request.getParameter("color");
                 BeerExpert expert = new BeerExpert();
-                List<String> result = expext.getBrands(c);
+                List<String> result = expert.getBrands(c);
 
-                response.setContentType("text/html");
-                PrintWriter out = response.getWriter();
-                out.println("Beer Selection Advice<br>");
+                request.setAttribute("styles",result);
 
-                Iterator<String> it = result.iterator();
-                while(it.hasNext()){
-                	out.println("<br>try: " + it.next());
-                }
+                RequestDispatcher view = request.getRequestDispatcher("result.jsp");
+                view.forward(request,response);
         }
 }
